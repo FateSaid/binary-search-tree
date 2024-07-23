@@ -1,3 +1,3 @@
-export function Node(left = null, data, right = null) {
-  return { left, data, right };
+export function Node(data, left = null, right = null) {
+  return { data, left, right };
 }
