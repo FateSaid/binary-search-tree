@@ -21,6 +21,9 @@ function Tree(array) {
 
   function insert(value) {
     while (root !== null) {
+      if (root.data === value) {
+        return;
+      }
       if (root.data > value) {
         if (root.left === null) {
           return (root.left = Node(value));
@@ -59,8 +62,6 @@ function Tree(array) {
   return { root, insert, deleteItem };
 }
 
-let a = Tree([1, 2, 3, 4, 5, 6, 7]);
-a.insert(8);
-a.deleteItem(8);
-
+let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
+a.insert(32);
 prettyPrint(a.root);
