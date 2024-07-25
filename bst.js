@@ -38,30 +38,8 @@ function Tree(array) {
     }
   }
 
-  function deleteItem(value) {
-    function searchValue(head) {
-      if (head === null) {
-        return;
-      } else {
-        if (head.data > value) {
-          if (head.left.data === value) {
-            return (head.left = null);
-          }
-          searchValue(head.left);
-        } else if (head.data < value) {
-          if (head.right.data === value) {
-            return (head.right = null);
-          }
-          searchValue(head.right);
-        }
-      }
-    }
-    return searchValue(root);
-  }
-
   return { root, insert, deleteItem };
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-a.insert(32);
 prettyPrint(a.root);
