@@ -1,7 +1,23 @@
-function findRoot(root) {
+function deleteRecursion(root) {
   if (root.left === null) return root;
   else {
-    return findRoot(root.left);
+    return deleteRecursion(root.left);
+  }
+}
+
+function findRoot(root, value) {
+  if (root === null) return "Not found";
+  else {
+    if (root.data > value) {
+      return findRoot(root.left, value);
+    }
+    if (root.data < value) {
+      return findRoot(root.right, value);
+    }
+    if (root.data === value) {
+      return root;
+    }
+    return root;
   }
 }
 
@@ -21,7 +37,7 @@ function deleteInsert(root, value) {
         return root.left;
       }
 
-      let succ = findRoot(root.right);
+      let succ = deleteRecursion(root.right);
       root.data = succ.data;
       root.right = deleteInsert(root.right, succ.data);
     }
@@ -30,4 +46,4 @@ function deleteInsert(root, value) {
   }
 }
 
-export { deleteInsert, deleteRecursion };
+export { deleteInsert, findRoot };

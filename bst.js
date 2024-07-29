@@ -1,7 +1,7 @@
 import { mergeSort } from "./mergeSort.js";
 import { Node } from "./node.js";
 import { prettyPrint } from "./prettyPrint.js";
-import { deleteInsert } from "./logic.js";
+import { deleteInsert, findRoot } from "./logic.js";
 
 function buildTree(array) {
   if (array.length === 0) {
@@ -42,12 +42,13 @@ function Tree(array) {
     value;
     return deleteInsert(root, value);
   }
+  function find(value) {
+    return findRoot(value);
+  }
 
-  return { root, insert, deleteItem };
+  return { root, insert, deleteItem, find };
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-a.deleteItem(65);
-a.deleteItem(60);
-a.deleteItem(34);
+a.find(40);
 prettyPrint(a.root);
