@@ -47,8 +47,7 @@ function Tree(array) {
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
+a.deleteItem(65);
 a.deleteItem(60);
 a.deleteItem(34);
-a.deleteItem(80);
-a.deleteItem(50);
 prettyPrint(a.root);

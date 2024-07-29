@@ -1,15 +1,13 @@
 function deleteRecursion(root) {
-  if (root.left === null) return root.data;
+  if (root.left === null) return root;
   else {
-    let value = deleteRecursion(root.left);
-    root.left = null;
-    return value;
+    return deleteRecursion(root.left);
   }
 }
 
 function deleteInsert(root, value) {
   if (root === null) {
-    return;
+    return root;
   } else {
     if (value < root.data) {
       root.left = deleteInsert(root.left, value);
@@ -17,17 +15,15 @@ function deleteInsert(root, value) {
       root.right = deleteInsert(root.right, value);
     }
     if (value === root.data) {
-      if (root.left !== null && root.right !== null) {
-        value = deleteRecursion(root.right);
-        root.data = value;
-        return root;
-      }
-      if (root.left !== null) {
-        return root.left;
-      } else if (root.right !== null) {
+      if (root.left == null) {
         return root.right;
+      } else if (root.right == null) {
+        return root.left;
       }
-      return null;
+
+      let succ = deleteRecursion(root.right);
+      root.data = succ.data;
+      root.right = deleteInsert(root.right, succ.data);
     }
 
     return root;
