@@ -1,7 +1,7 @@
-function deleteRecursion(root) {
+function findRoot(root) {
   if (root.left === null) return root;
   else {
-    return deleteRecursion(root.left);
+    return findRoot(root.left);
   }
 }
 
@@ -21,7 +21,7 @@ function deleteInsert(root, value) {
         return root.left;
       }
 
-      let succ = deleteRecursion(root.right);
+      let succ = findRoot(root.right);
       root.data = succ.data;
       root.right = deleteInsert(root.right, succ.data);
     }
@@ -30,4 +30,4 @@ function deleteInsert(root, value) {
   }
 }
 
-export { deleteInsert };
+export { deleteInsert, deleteRecursion };
