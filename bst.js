@@ -62,6 +62,19 @@ function Tree(array) {
       }
     }
   }
+  function preOrder(callback) {
+    function treeTraversal(root) {
+      if (root === null) {
+        return;
+      } else {
+        callback(root);
+        treeTraversal(root.left);
+        treeTraversal(root.right);
+        return;
+      }
+    }
+    return treeTraversal(root);
+  }
   function inOrder(callback) {
     function treeTraversal(root) {
       if (root === null) {
@@ -89,7 +102,16 @@ function Tree(array) {
     return treeTraversal(root);
   }
 
-  return { root, insert, deleteItem, find, levelOrder, inOrder, postOrder };
+  return {
+    root,
+    insert,
+    deleteItem,
+    find,
+    levelOrder,
+    inOrder,
+    postOrder,
+    preOrder,
+  };
 }
 
 function lately(node) {
