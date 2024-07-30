@@ -62,8 +62,34 @@ function Tree(array) {
       }
     }
   }
+  function inOrder(callback) {
+    function treeTraversal(root) {
+      if (root === null) {
+        return;
+      } else {
+        treeTraversal(root.left);
+        callback(root);
+        treeTraversal(root.right);
+        return;
+      }
+    }
+    return treeTraversal(root);
+  }
+  function postOrder(callback) {
+    function treeTraversal(root) {
+      if (root === null) {
+        return;
+      } else {
+        treeTraversal(root.left);
+        treeTraversal(root.right);
+        callback(root);
+        return;
+      }
+    }
+    return treeTraversal(root);
+  }
 
-  return { root, insert, deleteItem, find, levelOrder };
+  return { root, insert, deleteItem, find, levelOrder, inOrder, postOrder };
 }
 
 function lately(node) {
@@ -71,5 +97,5 @@ function lately(node) {
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-console.log(a.levelOrder(lately));
+a.postOrder(lately);
 prettyPrint(a.root);
