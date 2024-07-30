@@ -19,6 +19,7 @@ function buildTree(array) {
 function Tree(array) {
   let sortedArray = mergeSort(array);
   let root = buildTree(sortedArray);
+  let queue = [];
 
   function insert(value) {
     while (root !== null) {
@@ -43,12 +44,32 @@ function Tree(array) {
     return deleteInsert(root, value);
   }
   function find(value) {
-    return findRoot(value);
+    return findRoot(root, value);
+  }
+  function levelOrder(callback) {
+    queue.push(root);
+    while (queue.length !== 0) {
+      let node = queue.shift();
+      if (typeof callback !== "function") {
+        throw new Error("Callback is requried ");
+      }
+      callback(node);
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
   }
 
-  return { root, insert, deleteItem, find };
+  return { root, insert, deleteItem, find, levelOrder };
+}
+
+function lately(node) {
+  console.log(node);
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-a.find(40);
+console.log(a.levelOrder(lately));
 prettyPrint(a.root);

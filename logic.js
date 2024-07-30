@@ -1,3 +1,5 @@
+//function that traverse and finds the next big value
+
 function deleteRecursion(root) {
   if (root.left === null) return root;
   else {
@@ -5,6 +7,7 @@ function deleteRecursion(root) {
   }
 }
 
+// function that finds the node of that value
 function findRoot(root, value) {
   if (root === null) return "Not found";
   else {
@@ -21,6 +24,8 @@ function findRoot(root, value) {
   }
 }
 
+//function that deletes the value of that node
+
 function deleteInsert(root, value) {
   if (root === null) {
     return root;
@@ -31,9 +36,9 @@ function deleteInsert(root, value) {
       root.right = deleteInsert(root.right, value);
     }
     if (value === root.data) {
-      if (root.left == null) {
+      if (root.left === null) {
         return root.right;
-      } else if (root.right == null) {
+      } else if (root.right === null) {
         return root.left;
       }
 
