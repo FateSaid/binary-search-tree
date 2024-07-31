@@ -106,7 +106,7 @@ function Tree(array) {
     let heightRight = 0;
     function findHeight(root) {
       if (root === null) {
-        return;
+        return 0;
       } else {
         if (root.left !== null) {
           heigthLeft = findHeight(root.left);
@@ -144,6 +144,26 @@ function Tree(array) {
     }
     return searchDepth(root);
   }
+  function isBalanced() {
+    debugger;
+    let booleanArray = [];
+    function collectHeight(node) {
+      let leftChildHeigth = height(node.left);
+      let rightChildHeight = height(node.right);
+      if (leftChildHeigth > rightChildHeight) {
+        !(leftChildHeigth - rightChildHeight <= 1)
+          ? booleanArray.push("false")
+          : booleanArray.push("true");
+      } else {
+        !(rightChildHeight - leftChildHeigth <= 1)
+          ? booleanArray.push("false")
+          : booleanArray.push("true");
+      }
+    }
+
+    levelOrder(collectHeight);
+    return !booleanArray.includes("false");
+  }
 
   return {
     root,
@@ -156,8 +176,10 @@ function Tree(array) {
     preOrder,
     height,
     depth,
+    isBalanced,
   };
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
 prettyPrint(a.root);
+console.log(a.isBalanced());
