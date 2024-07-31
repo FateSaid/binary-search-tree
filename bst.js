@@ -101,6 +101,49 @@ function Tree(array) {
     }
     return treeTraversal(root);
   }
+  function height(node) {
+    let heigthLeft = 0;
+    let heightRight = 0;
+    function findHeight(root) {
+      if (root === null) {
+        return;
+      } else {
+        if (root.left !== null) {
+          heigthLeft = findHeight(root.left);
+        } else if (root.right !== null) {
+          heightRight = findHeight(root.right);
+        }
+        if (heigthLeft > heightRight) {
+          return heigthLeft++;
+        } else {
+          return heightRight++;
+        }
+      }
+    }
+    return findHeight(node);
+  }
+  function depth(node) {
+    debugger;
+    let depthNum = 0;
+    function searchDepth(root) {
+      if (root === null) {
+        return;
+      } else {
+        if (node.data === root.data) {
+          return depthNum;
+        }
+        if (node.data > root.data) {
+          depthNum++;
+          searchDepth(root.right);
+        } else {
+          depthNum++;
+          searchDepth(root.left);
+        }
+        return depthNum;
+      }
+    }
+    return searchDepth(root);
+  }
 
   return {
     root,
@@ -111,13 +154,10 @@ function Tree(array) {
     inOrder,
     postOrder,
     preOrder,
+    height,
+    depth,
   };
 }
 
-function lately(node) {
-  console.log(node);
-}
-
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-a.postOrder(lately);
 prettyPrint(a.root);
