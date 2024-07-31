@@ -22,22 +22,22 @@ function Tree(array) {
   let queue = [];
 
   function insert(value) {
-    while (root !== null) {
-      if (root.data === value) {
-        return;
-      }
-      if (root.data > value) {
-        if (root.left === null) {
-          return (root.left = Node(value));
+    function treeTraversal(root) {
+      if (root === null) {
+        return Node(value);
+      } else {
+        if (value < root.data) {
+          root.left = treeTraversal(root.left);
+        } else if (value > root.data) {
+          root.right = treeTraversal(root.right);
         }
-        root = root.left;
-      } else if (root.data < value) {
-        if (root.right === null) {
-          return (root.right = Node(value));
+        if (value === root.data) {
+          throw new Error("value already exist");
         }
-        root = root.right;
+        return root;
       }
     }
+    return treeTraversal(root);
   }
   function deleteItem(value) {
     value;
@@ -145,7 +145,6 @@ function Tree(array) {
     return searchDepth(root);
   }
   function isBalanced() {
-    debugger;
     let booleanArray = [];
     function collectHeight(node) {
       let leftChildHeigth = height(node.left);
@@ -164,6 +163,15 @@ function Tree(array) {
     levelOrder(collectHeight);
     return !booleanArray.includes("false");
   }
+  function reBalance() {
+    let array = [];
+    function sortNode(node) {
+      array.push(node.data);
+    }
+    inOrder(sortNode);
+    debugger;
+    root = buildTree(array);
+  }
 
   return {
     root,
@@ -177,9 +185,12 @@ function Tree(array) {
     height,
     depth,
     isBalanced,
+    reBalance,
   };
 }
 
 let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
+a.insert(11);
+a.insert(3);
+a.reBalance();
 prettyPrint(a.root);
-console.log(a.isBalanced());
