@@ -1,7 +1,7 @@
 import { mergeSort } from "./mergeSort.js";
 import { Node } from "./node.js";
 import { prettyPrint } from "./prettyPrint.js";
-import { deleteInsert, findRoot } from "./logic.js";
+import { createRandomArray, deleteInsert, findRoot } from "./logic.js";
 
 function buildTree(array) {
   if (array.length === 0) {
@@ -18,8 +18,14 @@ function buildTree(array) {
 
 function Tree(array) {
   let sortedArray = mergeSort(array);
-  let root = buildTree(sortedArray);
+  let root;
+  let tempRoot;
   let queue = [];
+  if (tempRoot === undefined) {
+    root = buildTree(sortedArray);
+  } else {
+    root = reBalance();
+  }
 
   function insert(value) {
     function treeTraversal(root) {
@@ -102,28 +108,15 @@ function Tree(array) {
     return treeTraversal(root);
   }
   function height(node) {
-    let heigthLeft = 0;
-    let heightRight = 0;
-    function findHeight(root) {
-      if (root === null) {
-        return 0;
-      } else {
-        if (root.left !== null) {
-          heigthLeft = findHeight(root.left);
-        } else if (root.right !== null) {
-          heightRight = findHeight(root.right);
-        }
-        if (heigthLeft > heightRight) {
-          return heigthLeft++;
-        } else {
-          return heightRight++;
-        }
-      }
+    if (node === null) {
+      return 0;
+    } else {
+      let leftHeight = height(node.left);
+      let rightHeight = height(node.right);
+      return Math.max(leftHeight, rightHeight) + 1;
     }
-    return findHeight(node);
   }
   function depth(node) {
-    debugger;
     let depthNum = 0;
     function searchDepth(root) {
       if (root === null) {
@@ -145,6 +138,7 @@ function Tree(array) {
     return searchDepth(root);
   }
   function isBalanced() {
+    debugger;
     let booleanArray = [];
     function collectHeight(node) {
       let leftChildHeigth = height(node.left);
@@ -169,8 +163,8 @@ function Tree(array) {
       array.push(node.data);
     }
     inOrder(sortNode);
-    debugger;
     root = buildTree(array);
+    return root;
   }
 
   return {
@@ -189,8 +183,9 @@ function Tree(array) {
   };
 }
 
-let a = Tree([36, 34, 32, 40, 20, 30, 50, 70, 60, 65, 80, 75, 85]);
-a.insert(11);
-a.insert(3);
-a.reBalance();
+let a = Tree(createRandomArray(13));
+a.insert(120);
+a.insert(300);
+a.insert(453);
 prettyPrint(a.root);
+console.log(a.height(a.root));

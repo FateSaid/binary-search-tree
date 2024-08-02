@@ -51,4 +51,15 @@ function deleteInsert(root, value) {
   }
 }
 
-export { deleteInsert, findRoot };
+function createRandomArray(length) {
+  if (length >= 100) {
+    throw new Error("Length is bigger or equal to 100");
+  }
+  let array = [];
+  for (let i = 0; i < length; i++) {
+    array.push(Math.floor(Math.random() * 99));
+  }
+  return array;
+}
+
+export { deleteInsert, findRoot, createRandomArray };
